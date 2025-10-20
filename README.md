@@ -77,48 +77,10 @@ Corruption_Detection.py
 This script implements the **corruption detection** stage of the **D-EDIV** framework, which performs **personalized federated adaptation** for **intrusion detection models** across distributed edge nodes. It trains a global reference model on proxy data, then enables each edge node to prune and fine-tune a local variant using its own data under device-specific latency constraints, producing optimized, resource-aware detection models. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
 
 ### Corruption Localization
-With the optimal configuration identified during the architecture search phase, update the ViT architecture settings in `main.py` then run:
+This script implements the corruption localization stage of the D-EDIV framework, which performs cryptographic verification to identify and isolate corrupted data after a detection alert. It validates replica commitments through digital signatures and Merkle tree proofs, enabling fine-grained, block-level localization of tampered data across distributed edge nodes. To run:
+
 ```python
 Localization.py
 ```
-- Run the pre-training block in the code first. This step performs contrastive training and domain alignment, where dual-margin contrastive loss and MMD are jointly optimized to structure the embedding space—enhancing discriminability while aligning the source domain with the RF data-scarce target domain. 
-- Next, run the supervised fine-tuning block in the code. This phase fine-tunes the Transformer encoder alongside a classifier on a small labeled RF dataset to perform final emitter identification. Finally, evaluate the fine-tuned model on the test dataset to assess its performance and generalization ability.
 
 Again, make sure to replace the file path with the actual path to your test dataset in the code.
-
-### main_audio_dataset
-This script performs pretraining using the SpeechCommands audio dataset, followed by fine-tuning with RF data, transferring knowledge from the data-rich audio domain (source) to the data-scarce RF domain (target) for precise device authentication. To run:
-```python
-main_audio_dataset.py
-```
-## Additional Scripts
-### Evasion_Attacks_Evaluation
-This script evaluates the model's robustness against evasion attacks. The two variants, PGD (Projected Gradient Descent) and FGSM (Fast Gradient Sign Method), are used to generate adversarial examples. The model’s accuracy, confidence, and attack success rate are computed to assess its performance against these adversarial perturbations. To run:
-```python
-Evasion_Attacks_Evaluation.py
-```
-### RF_Spoofing_Adv_Examples
-This script trains a conditional Generative Adversarial Network (GAN) to generate RF spoofed signals conditioned on device labels. The spoofed samples are then fed into our pretrained model to evaluate its robustness. To run:
-```python
-RF_Spoofing_Adv_Examples.py
-```
-### Correlation Coefficients
-This script computes Spearman's and Kendall's correlation coefficients to evaluate how well the predicted rankings align with the true rankings. To run:
-```python
-Correlation Coefficients.py
-```
-
-### PreTraining_t_SNE
-This script visualizes the embeddings learned during pre-training using t-SNE for dimensionality reduction. It helps in visualizing how well the learned embeddings from source and target domains are structured. To run: 
-```python
-PreTraining_t_SNE.py
-```
-
-### #Flops and #Param
-This script calculates the FLOPs (Floating Point Operations) and parameter count for the top-ranked architectures, helping to assess their computational efficiency and resource requirements. To run:
-```python
-#Flops and #Param.py
-```
----
-## Experiment Variants
-The experiments for both conventional training and cross-domain knowledge transfer can be conducted using `main.py` or `main_audio_dataset.py`. To switch between conventional training and cross-domain knowledge transfer, uncomment or modify the appropriate # lines in the code that correspond to each experimental setting. Make sure to replace the dataset paths and configurations accordingly when switching between modes.
