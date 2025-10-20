@@ -74,7 +74,7 @@ Run the following script to realize the corruption detection stage:
 ```python 
 Corruption_Detection.py
 ```
-This script implements the corruption detection stage of the D-EDIV framework, which performs personalized federated adaptation for intrusion detection across distributed edge nodes. It trains a global reference model on proxy data, then enables each client to prune and fine-tune a local variant using its own data under device-specific latency constraints, producing optimized, resource-aware detection models. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
+This script implements the **corruption detection** stage of the **D-EDIV** framework, which performs **personalized federated adaptation** for **intrusion detection models** across distributed edge nodes. It trains a global reference model on proxy data, then enables each edge node to prune and fine-tune a local variant using its own data under device-specific latency constraints, producing optimized, resource-aware detection models. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
 
 ### Corruption Localization
 With the optimal configuration identified during the architecture search phase, update the ViT architecture settings in `main.py` then run:
