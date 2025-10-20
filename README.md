@@ -77,7 +77,7 @@ Corruption_Detection.py
 This script implements the **corruption detection** stage of the **D-EDIV** framework, which performs **personalized federated adaptation** for **intrusion detection models** across distributed edge nodes. It trains a global reference model on proxy data, then enables each edge node to prune and fine-tune a local variant using its own data under device-specific latency constraints, producing optimized, resource-aware detection models. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
 
 ### Corruption Localization
-This script implements the corruption localization stage of the D-EDIV framework, which performs cryptographic verification to identify and isolate corrupted data after a detection alert. It validates replica commitments through digital signatures and Merkle tree proofs, enabling fine-grained, block-level localization of tampered data across distributed edge nodes. To run:
+This script implements the **corruption localization** stage of the D-EDIV framework, which performs **cryptographic verification** to identify and isolate corrupted data after a detection alert. It validates replica commitments through digital signatures and Merkle tree proofs, enabling fine-grained, block-level localization of tampered data across distributed edge nodes. To run:
 
 ```python
 Localization.py
