@@ -3,12 +3,12 @@
 ![ZNAX Framework](./D-EDIV_1.png)
 > Figure: A Conceptual Overview 
 
-This repository provides the code and resources for the research paper **"Decoupled Edge Data Integrity via Federated Adaptation and Cryptographic Verification."** The proposed framework provides the efficient and fine-grained data integrity verification in Mobile Edge Computing (MEC) environments.
+This repository provides the code and resources for the research paper **"Decoupled Edge Data Integrity via Federated Adaptation and Cryptographic Verification."** The proposed framework provides the efficient and fine-grained data integrity verification in **Mobile Edge Computing (MEC)** environments.
 
 ---
 
 ## Framework Overview  
-The proposed framework addresses the neural network design complexity and data scarcity challenges of **deep learning-based Specific Emitter Identification (SEI)**. SEI authenticate wireless devices based on their unique Radio Frequency Fingerprints (RFFs). The framework is dubbed **ZNAX**, where **Z** stands for **Zero-Cost**, **NA** for **NAS**, and **X** for **Cross-domain**. **ZNAX** leverages **zero-cost NAS** for optimal architecture discovery for RFF extraction and employs a **cross-domain knowledge transfer** approach to mitigate data scarcity. The **ZNAX** framework operates in three sequential stages, as shown in the figure. **ZNAX** facilitates lightweight architecture search and generalizable wireless device authentication with minimal labeled data, making it well-suited for edge computing scenarios.
+The **D-EDIV (Decoupled Edge Data Integrity Verification)** framework introduces an efficient approach for ensuring the integrity of cached data in **MEC** environments. It separates the verification process into two stages — **corruption detection** and **corruption localization** — to improve accuracy and reduce overhead. In this framework, **intrusion detection models** operate at **edge nodes** to detect possible data corruption using **personalized federated training**, allowing adaptation to each node’s **computational capacity** and **local data distribution**. Once potential anomalies are flagged, the **Application Vendor (AV)** performs **cryptographic verification** using a **digital signature** scheme and **Merkle tree structure** to authenticate data integrity and locate corrupted blocks precisely. **D-EDIV** achieves **efficient** and **fine-grained integrity verification** for edge-cached data while maintaining **low computational and communication costs**.
 
 ## Pipeline Stages
 
