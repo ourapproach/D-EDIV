@@ -13,17 +13,17 @@ The **D-EDIV (Decoupled Edge Data Integrity Verification)** framework introduces
 ## Pipeline Stages
 
 ### 1. Corruption Detection
-- A personalized federated training approach enables the adaptation of intrusion detection models across heterogeneous edge nodes. 
+A personalized federated training approach enables the adaptation of intrusion detection models across heterogeneous edge nodes. 
 - Central server initializes training with an overparameterized reference model on a proxy dataset.
 - Generates a global pruning mask to identify and preserve globally important feature channels.
 - Disseminates the reference model and global pruning mask to all edge nodes.
+
 Each edge node:
 - Uses a network adapter to derive a local pruning mask based on its computational capacity.
 - Prunes the reference model while respecting globally important channels.
 - Fine-tunes the pruned model using local data.
 - Edge nodes transmit fine-tuned models back to the central server.
 - Server performs channel-wise aggregation to update the global reference model.
-
 The process iterates for several rounds until each edge node obtains an optimized intrusion detection model adapted to local conditions.
 
 ### 2. Corruption Localization
