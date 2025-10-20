@@ -3,7 +3,7 @@
 ![ZNAX Framework](./D-EDIV.png)
 > Figure: A Conceptual Overview 
 
-This repository provides the code and resources for the research paper **"Robust Device Authentication with Zero-Cost NAS and Cross-Domain Knowledge Transfer."** The proposed framework leverages zero-cost Neural Architecture Search (NAS) and cross-domain knowledge transfer to address key challenges in deep learning-based Specific Emitter Identification (SEI).
+This repository provides the code and resources for the research paper **"Decoupled Edge Data Integrity via Federated Adaptation and Cryptographic Verification."** The proposed framework leverages zero-cost Neural Architecture Search (NAS) and cross-domain knowledge transfer to address key challenges in deep learning-based Specific Emitter Identification (SEI).
 
 ---
 
