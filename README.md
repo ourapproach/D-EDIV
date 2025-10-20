@@ -12,19 +12,15 @@ The **D-EDIV (Decoupled Edge Data Integrity Verification)** framework introduces
 
 ## Pipeline Stages
 
-### 1. Zero-Cost NAS
+### 1. Corruption Detection
 - Searches for the optimal ViT encoder block configuration for RFF extraction based on four designed zero-cost proxies: **Discriminability**, **Trainability**, **Cohesiveness**, and **Diversity**.
 - Computes proxy scores through a single forward-backward pass, applies **non-linear aggregation** to obtain an accumulative score for ranking the sampled architectures, and conducts **evolutionary search** to refine the selection—identifying the top-ranked architecture that consistently performs well across all proxies.
 
-### 2. Pre-Training Phase
+### 2. Corruption Localization
 - Source dataset from a data-rich domain and target dataset from a data-scarce domain are fed to identified network to extract respective embeddings.
 - Contrastive training and domain alignment are performed jointly. Specifically, the **dual-margin contrastive loss** structures the embedding space for improved discriminability, while the **Maximum Mean Discrepancy (MMD)** objective facilitates alignment between the source domain and the RF data-scarce target domain.
 
-### 3. Supervised Fine-Tuning
-- To fully adapt the RFF extractor for SEI, supervised fine-tuning is performed alongside a classifier.
-- As a preprocessing step, raw RF samples are first converted into **spectrograms**, and each spectrogram is divided into patches and passed through patch embedding and positional encoding.
-- The **resulting representations** are then fed into the **pre-trained network** to extract **RFFs**.
-- An **MLP classifier** is placed on top of the **Transformer encoder** to map the extracted RFFs to their corresponding device labels. As fine-tuning progresses, the model gradually adapts to the target domain and enables effective **device authentication under data scarcity**.
+
 
 ---
 
