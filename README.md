@@ -27,10 +27,10 @@ Each edge node:
 The process iterates for several rounds until each edge node obtains an optimized intrusion detection model adapted to local conditions.
 
 ### 2. Corruption Localization
-- Source dataset from a data-rich domain and target dataset from a data-scarce domain are fed to identified network to extract respective embeddings.
-- Contrastive training and domain alignment are performed jointly. Specifically, the **dual-margin contrastive loss** structures the embedding space for improved discriminability, while the **Maximum Mean Discrepancy (MMD)** objective facilitates alignment between the source domain and the RF data-scarce target domain.
-
-
+Upon corruption detection, the Application Vendor (AV) initiates a cryptographic verification process.
+- The digital signature on the Merkle root is validated to ensure authenticity and prevent replay/forgery attacks.
+- Once authenticated, the hierarchical Merkle tree structure is utilized to efficiently verify received proofs.
+- Verification is performed against the authenticated root to ensure data integrity to enable fine-grained, block-level localization of corrupted data segments.
 
 ---
 
