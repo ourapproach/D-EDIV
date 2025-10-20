@@ -35,8 +35,11 @@ Upon corruption detection, the Application Vendor (AV) initiates a cryptographic
 ---
 
 ## Datasets
-- For the source domain, well-established, data-rich image classification datasets such as **MNIST**, **CIFAR-10** and **CIFAR-100** are used.
-- For the target domain, non-augmented **RFFI dataset** is use which consists of RF samples. **RFFI dataset** can be downloaded from https://ieee-dataport.org/open-access/lorarffidataset
+The **D-EDIV framework** is evaluated using three well-established intrusion detection datasets: **NSL-KDD**, **UNSW-NB15**, and **CIC-IDS2017**.
+The experimental setup proceeds as follows:
+- The **reference model** is initially trained on the **NSL-KDD** dataset to obtain a foundational understanding of network flow patterns and attack behaviors.
+- Following the global pruning stage, local fine-tuning is conducted on the **UNSW-NB15** and **CIC-IDS2017** datasets under various experimental configurations to ensure adaptability across heterogeneous network environments.
+- These datasets can be downloaded from their official repositories: https://ieee-dataport.org/documents/nsl-kdd-0#files, https://www.unb.ca/cic/datasets/cic-unsw-nb15.html, https://www.unb.ca/cic/datasets/ids-2017.html, 
 
 ---
 
