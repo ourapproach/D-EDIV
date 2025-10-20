@@ -1,6 +1,6 @@
 # Replication package for paper "Decoupled Edge Data Integrity via Federated Adaptation and Cryptographic Verification"
 
-![ZNAX Framework](./D-EDIV.png)
+![ZNAX Framework](./D-EDIV_1.png)
 > Figure: A Conceptual Overview 
 
 This repository provides the code and resources for the research paper **"Decoupled Edge Data Integrity via Federated Adaptation and Cryptographic Verification."** The proposed framework leverages zero-cost Neural Architecture Search (NAS) and cross-domain knowledge transfer to address key challenges in deep learning-based Specific Emitter Identification (SEI).
