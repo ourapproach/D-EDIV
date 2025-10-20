@@ -67,19 +67,19 @@ data_path = "/path/to/data"  # Replace with your actual path
 
 ---
 
-## How to run ZNAX?
-### Architecture Search
-Run the following script to search for the optimal Vision Transformer (ViT) configuration using zero-cost proxies:
+## How to run D-EDIV?
+### Corruption Detection
+Run the following script to realize the corruption detection stage:
 
 ```python 
-ZC_Proxies_Ranking.py
+Corruption_Detection.py
 ```
-This script ranks candidate architectures based on four proxy metrics such as discriminability, trainability, cohesiveness, and diversity. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
+This script implements the corruption detection stage of the D-EDIV framework, which performs personalized federated adaptation for intrusion detection across distributed edge nodes. It trains a global reference model on proxy data, then enables each client to prune and fine-tune a local variant using its own data under device-specific latency constraints, producing optimized, resource-aware detection models. Update any lines marked with `# Replace with your actual path` in the script to point to the correct data location on your system.
 
-### Pre-Training and Supervised Fine-Tuning
+### Corruption Localization
 With the optimal configuration identified during the architecture search phase, update the ViT architecture settings in `main.py` then run:
 ```python
-main.py
+Localization.py
 ```
 - Run the pre-training block in the code first. This step performs contrastive training and domain alignment, where dual-margin contrastive loss and MMD are jointly optimized to structure the embedding space—enhancing discriminability while aligning the source domain with the RF data-scarce target domain. 
 - Next, run the supervised fine-tuning block in the code. This phase fine-tunes the Transformer encoder alongside a classifier on a small labeled RF dataset to perform final emitter identification. Finally, evaluate the fine-tuned model on the test dataset to assess its performance and generalization ability.
