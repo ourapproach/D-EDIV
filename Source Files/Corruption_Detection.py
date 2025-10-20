@@ -17,9 +17,11 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Mount Google Drive / Local Drive
+
 drive.mount('/content/drive') #Replace with your actual path
 
 # Seed and Device 
+
 SEED = 42
 random.seed(SEED); np.random.seed(SEED)
 torch.manual_seed(SEED); torch.cuda.manual_seed_all(SEED)
@@ -875,6 +877,7 @@ def server_channelwise_aggregate_sparse(server_model, client_packets, client_siz
     server_model.load_state_dict(new_state, strict=False)
 
 # Server pretrain on NSL-KDD 
+
 Xtr_img, ytr, Xte_img, yte = load_nsl_kdd(NSL_TRAIN)
 train_loader_nsl = to_loader(Xtr_img, ytr, bs=64, shuffle=True)
 test_loader_nsl  = to_loader(Xte_img, yte, bs=256, shuffle=False)
@@ -960,6 +963,7 @@ def pretrain_adapter_on_server(full_model, train_loader, global_mask_keep_dict_g
             opt_adapt.zero_grad(set_to_none=True)
 
             # sample multiple latency targets per batch 
+            
             targets = budget_sampler.sample(n=2)
             loss_sum = 0.0
             for ms in targets:
@@ -1060,6 +1064,7 @@ _ = evaluate_acc_unpruned(server_model, unsw_te_loader, title="UNSW test (pre-FL
 server_state_gpu = {k: v.detach().clone().to(device) for k,v in server_model.state_dict().items()}
 
 # Deployment: reconstruct slim model from cache 
+
 @torch.no_grad()
 def build_slim_from_cache_payload(payload, device='cuda'):
     """
