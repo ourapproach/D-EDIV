@@ -3,16 +3,16 @@ from dataclasses import dataclass
 from typing import List, Tuple, Iterable, Set, Optional, Protocol, Dict
 import hashlib, random, time, math
 
-# =========================
+
 # Hash primitive (stand-in for LiteHash)
-# =========================
+
 def H(data: bytes) -> bytes:
     return hashlib.blake2s(data).digest()
 
 
-# =========================
+
 # Merkle tree + proofs
-# =========================
+
 @dataclass(frozen=True)
 class ProofElem:
     sibling: bytes
@@ -72,9 +72,9 @@ def merkle_reconstruct(leaf_hash: bytes, path: List[ProofElem]) -> bytes:
     return acc
 
 
-# =========================
+
 # Ed25519 signing via cryptography
-# =========================
+
 class SignatureScheme(Protocol):
     def sign(self, sk: bytes, msg: bytes) -> bytes: ...
     def verify(self, pk: bytes, msg: bytes, sig: bytes) -> bool: ...
@@ -121,17 +121,17 @@ class Ed25519Cryptography(SignatureScheme):
             return False
 
 
-# =========================
+
 # Message binding for (R || e || t_e)
-# =========================
+
 def encode_root_message(R: bytes, e: int, t_e: int) -> bytes:
     # Simple unambiguous encoding + hash; keeps message short
     return H(b"R|" + R + b"|e|" + str(e).encode() + b"|t|" + str(t_e).encode())
 
 
-# =========================
+
 # Edge commitment + signature
-# =========================
+
 @dataclass
 class EdgeCommitment:
     root: bytes
@@ -156,9 +156,9 @@ def edge_commit_and_sign(
     return tree, EdgeCommitment(root=R, epoch=epoch, t_epoch=t_epoch, sig=sig, pk=pk)
 
 
-# =========================
-# Verifier: localization for one replica (UPDATED with timing)
-# =========================
+
+# Verifier: 
+
 def localize_corruption_for_replica(
     blocks: List[bytes],
     get_proof,  # index -> List[ProofElem]
@@ -175,6 +175,7 @@ def localize_corruption_for_replica(
     I_i: Set[int] = set()
 
     # Signature confirmation (global)
+    
     msg = encode_root_message(commitment.root, commitment.epoch, commitment.t_epoch)
     if not sigscheme.verify(commitment.pk, msg, commitment.sig):
         # No authentic root => mark all
@@ -187,7 +188,7 @@ def localize_corruption_for_replica(
         }
         return set(range(n)), stats
 
-    # Per-block localization with timing
+    # Per-block localization 
     total_verify_ns = 0
     for j, block in enumerate(blocks):
         t0 = time.perf_counter_ns()
@@ -213,9 +214,9 @@ def localize_corruption_for_replica(
     return I_i, stats
 
 
-# =========================
-# Real-time-ish multi-node simulation (random selection)  (UPDATED to print timing)
-# =========================
+
+# Real-time-ish multi-node simulation (random selection)  
+
 def simulate_multi_node(
     num_nodes: int = 15,
     blocks_per_node: int = 64,
@@ -236,13 +237,15 @@ def simulate_multi_node(
     """
     random.seed(seed)
 
-    # --- Choose nodes to corrupt (randomly if not given)
+    # --- Choose nodes to corrupt 
+    
     if corrupt_node_ids is None:
         if not (0 <= num_corrupt_nodes <= num_nodes):
             raise ValueError("num_corrupt_nodes must be between 0 and num_nodes.")
         corrupt_node_ids = sorted(random.sample(range(num_nodes), k=num_corrupt_nodes))
 
     # Setup signature scheme + keys per node
+    
     sigscheme = Ed25519Cryptography()
     keys: Dict[int, Tuple[bytes, bytes]] = {}
     for i in range(num_nodes):
@@ -250,6 +253,7 @@ def simulate_multi_node(
         keys[i] = (sk, pk)
 
     # Create raw blocks per node (seeded for reproducibility)
+    
     replicas: Dict[int, List[bytes]] = {}
     for i in range(num_nodes):
         blocks = []
@@ -277,6 +281,7 @@ def simulate_multi_node(
         commits[i] = commit
 
     # Tamper (AFTER signing) on selected nodes
+    
     tampered: Dict[int, List[bytes]] = {i: list(replicas[i]) for i in range(num_nodes)}
     corruption_map: Dict[int, Set[int]] = {i: set() for i in range(num_nodes)}
 
@@ -290,7 +295,8 @@ def simulate_multi_node(
             tampered[nid][j] = tampered[nid][j] + b"|CORRUPTED|" + random.randbytes(8)
         corruption_map[nid] = set(bad_indices)
 
-    # Verifier: run localization for all nodes (assume Stage-1 flagged all for demo)
+    # Verifier: run localization for all nodes 
+    
     detected: Dict[int, Set[int]] = {}
     timing_stats: Dict[int, Dict[str, float]] = {}
     for i in range(num_nodes):
@@ -303,7 +309,8 @@ def simulate_multi_node(
         detected[i] = I_i
         timing_stats[i] = stats
 
-    # Pretty print results
+    # Results
+    
     print("=== Simulation Summary ===")
     print(f"Nodes       : {num_nodes}")
     print(f"Blocks/node : {blocks_per_node}")
@@ -315,7 +322,8 @@ def simulate_multi_node(
         print(f"Corruption fraction (fixed) : {corruption_fraction:.2f}")
     print()
 
-    # --- Timing summary (key part you asked for)
+    # Timing summary 
+    
     total_blocks = sum(stats["blocks"] for stats in timing_stats.values())
     total_ns = sum(stats["total_verify_ns"] for stats in timing_stats.values())
     overall_avg_ms = (total_ns / total_blocks) / 1e6 if total_blocks else 0.0
